@@ -15,21 +15,21 @@
 - _Put logic related to server interactions inside `service/http.ts` file (check [Our Documentation](https://github.com/CodeGeneration-2020/code-generation-code-style/blob/main/docs/javascript.md#server-interactions-))_
 - _For data fetching you can use [React Query](https://react-query.tanstack.com/), it also help you to globally store your data_
 
-3. Authorization (login/signup) backend;
+3. **Authorization (login/signup) backend;**
 
 - _Use jwt [authorization](https://nodejsdev.ru/doc/jwt/) and [Passport](http://www.passportjs.org/) for that_
 - _Logic related to token processing should be stored in `middlewares/auth.middleware.ts`_
 
-4. Authorization (login/signup) frontend;
+4. **Authorization (login/signup) frontend;**
 
 - _Should store token in localStorage_
 - _Use Formik for handling validation and submit func_
 
-5. Filters for todo list by title and statuses (private and completed);
+5. **Filters for todo list by title and statuses (private and completed);**
 
 - _You should pass filter params through `req.params`(`localhost:3000/todo?search=test&status=completed`)_
 
-6. Button pagination;
+6. **Button pagination;**
 
 - _All pagination should be handled by backend_
 ### NOTES  
