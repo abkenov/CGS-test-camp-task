@@ -39,6 +39,12 @@
 
 Design: [https://balsamiq.cloud/syedgi8/pnzr5a1/r050B](https://balsamiq.cloud/syedgi8/pnzr5a1/r050B)  
 
+7. **React Native details;**
+- _Front-end should ONLY be launched with React Native EXPO, not (CLI)_
+- _For navigation between screens use React Native Navigation (https://reactnavigation.org/docs/getting-started/)_
+- _Try to play around with bottom stack navigation, while working with navigation (https://reactnavigation.org/docs/bottom-tab-navigator)_
+- _Use `useRoute` + `useNavigation`_
+
 ## PR convention
 
 1. Each intern will be attached to the branch (`<username>/main`);
