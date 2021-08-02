@@ -32,6 +32,18 @@
 6. **Button pagination;**
 
 - _All pagination should be handled by backend_
+
+### NAMING
+
+1. **How to name your branch?**
+- _All the branches should be named in the following way:_ task-[task_name]-[short-description]. For instance: `task-authorisation-implement-auth-for-back`
+
+2. **How to name your commit?**
+- _All the commits should be named in the following way:_ [TASK_NAME]-[short description]. For instance: `AUTHORISATION-implemented CRUD operations for creating a user`
+
+3. **How to name your PR's?**
+- _All the PR's should be named in the following way:_ [TASK_NAME] | [short description]: For instance `AUTHORISATION / Implement auth flow for back-end and front-end.`
+
 ### NOTES  
 
 > Backend should have stored in `server` dir, mobile should be stored in `mobile` dir.  
