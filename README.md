@@ -36,7 +36,7 @@
 ### NAMING
 
 1. **How to name your branch?**
-- _All the branches should be named in the following way:_ task-[task_name]-[short-description]. For instance: `task-authorisation-implement-auth-for-back`
+- _All the branches should be named in the following way:_ task-[task_name]-[short-description]. For instance: `task-authorisation-implement-auth-for-back-end-part`
 
 2. **How to name your commit?**
 - _All the commits should be named in the following way:_ [TASK_NAME]-[short description]. For instance: `AUTHORISATION-implemented CRUD operations for creating a user`
