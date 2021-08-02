@@ -33,17 +33,6 @@
 
 - _All pagination should be handled by backend_
 
-### NAMING
-
-1. **How to name your branch?**
-- _All the branches should be named in the following way:_ task-[task_name]-[short-description]. For instance: `task-authorisation-implement-auth-for-back-end-part`
-
-2. **How to name your commit?**
-- _All the commits should be named in the following way:_ [TASK_NAME]-[short description]. For instance: `AUTHORISATION-implemented CRUD operations for creating a user`
-
-3. **How to name your PR's?**
-- _All the PR's should be named in the following way:_ [TASK_NAME] | [short description]: For instance `AUTHORISATION / Implement auth flow for back-end and front-end.`
-
 ### NOTES  
 
 > Backend should have stored in `server` dir, mobile should be stored in `mobile` dir.  
@@ -59,10 +48,10 @@ Design: [https://balsamiq.cloud/syedgi8/pnzr5a1/r050B](https://balsamiq.cloud/sy
 
 ## PR convention
 
-1. Each intern will be attached to the branch (`<username>/main`);
-2. When you are working on the feature you should create a separate branch from `<username>/main` with name  
-`feature/<username>/<feautre-name>` or `bug/<username>/<feautre-name>`. When you will finished with subtask you should create PR into `<username>/main` and ping `Danyyl Kuchkov` for review;
-3. Title of PR should be `feat: <name of your feature>` or `bug-fix: <name of your bugfix>`. Description field should contain short info about feature/bug;
+1. Each intern will be attached to a branch (`<username>/main`);
+2. When you are working on a feature you should create a separate branch from `<username>/main` with the following name:
+`feature/<username>/<feature-name>` or `bug/<username>/<feature-name>`. Once you are done with a subtask you should create a PR into `<username>/main` and ping `Danyyl Kuchkov & Oleksii Samoilenko` for review;
+3. Title of ypur PR's should be `feat: <name of your feature>` or `bug-fix: <name of your bugfix>`. Description field should contain short info about feature/bug;
 
 > If you will face with some issues with git. Ask `Danyyl Kuchkov` via slack;
 
