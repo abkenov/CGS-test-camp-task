@@ -35,6 +35,18 @@
 
 - _All pagination should be handled by backend_
 
+## Advanced features
+
+> This features will be available only after successful finished of required features.
+
+### Graph QL implementation  
+
+1. **Attach express-graphql to backend**  
+
+- _Take existent controllers in your backend and create another `/graphql` route with all this controllers_
+- _Use axios for querying a controllers_  
+- _Graphql api should work in parallel with existing REST api_  
+
 ### NOTES  
 
 > Backend should have stored in `server` dir, mobile should be stored in `mobile` dir.  
