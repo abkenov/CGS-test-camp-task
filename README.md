@@ -14,7 +14,7 @@
 - _For Edit/Add you should use forms written with [Formik](https://formik.org/docs/overview);_  
 - _Put logic related to server interactions inside `service/http.ts` file (check [Our Documentation](https://github.com/CodeGeneration-2020/code-generation-code-style/blob/main/docs/javascript.md#server-interactions-))_
 - _For data fetching you can use [React Query](https://react-query.tanstack.com/), it also help you to globally store your data_
-_ _Use <FlatList /> for render dynamic list (reed RN docs)_
+- _Use <FlatList /> for render dynamic list (reed RN docs)_
 - _Use React Native EXPO in order to install RN for both iOS & Android (https://docs.expo.dev/index.html)_
 
 3. **Authorization (login/signup) backend;**
