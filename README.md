@@ -54,7 +54,7 @@
 
 
 
-Design: [https://balsamiq.cloud/syedgi8/pnzr5a1/r050B](https://drive.google.com/file/d/1uSkWwYC7yrvgDFJznxNlKPqQl_SahGzZ/view)  
+Design: [drive.google](https://drive.google.com/file/d/1uSkWwYC7yrvgDFJznxNlKPqQl_SahGzZ/view)  
 
 7. **React Native details;**
 - _Front-end should ONLY be launched with React Native EXPO, not (CLI)_
