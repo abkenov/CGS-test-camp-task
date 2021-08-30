@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, TextInput, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import { Formik } from 'formik';
-import * as yup from 'yup';
+import RegistrationFormValidation from '../validations/RegistrationFormValidation';
 
-export default function Registration({ navigation }) {
+export default function Registration({ navigation }: { navigation: any }) {
 
-  const validationSchema = yup.object().shape({
-    username: yup.string().typeError('string').required('Username field can not be empty!'),
-    email: yup.string().email('Appropriate e-mail is required!').required('E-mail field can not be empty'),
-    password: yup.string().typeError('string').required('Password field can not be empty!'),
-    passwordVerification: yup.string().oneOf([yup.ref('password')], 'Passwords do not match!').required('Password verification is needed!'),
-  })
+  const handleRegisterButton = (handleSubmit: Function) => {
+    handleSubmit()
+    navigation.goBack()
+  }
+
+  const initialValues = { 
+    username: '',
+    email: '',
+    password: '',
+    passwordVerification: '',
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <Formik
-        initialValues={
-          { 
-            username: '',
-            email: '',
-            password: '',
-            passwordVerification: '',
-          }
-        }
-        onSubmit={values => console.log(values)}
-        validationSchema={validationSchema}
+        initialValues={initialValues}
+        onSubmit={values => {}}
+        validationSchema={RegistrationFormValidation()}
       >
       {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, dirty }) => (
           <KeyboardAvoidingView
@@ -73,10 +71,7 @@ export default function Registration({ navigation }) {
               </ScrollView>
             </TouchableWithoutFeedback>
           <Button 
-            onPress={() => {
-              handleSubmit()
-              navigation.goBack()
-            }} 
+            onPress={() => handleRegisterButton(handleSubmit)} 
             title="Register"
             disabled={!isValid || !dirty}
           />

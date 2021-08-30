@@ -1,19 +1,34 @@
 import React from 'react';
-import { Button, SafeAreaView, StyleSheet, Text, TextInput, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
+import { 
+  Button, 
+  SafeAreaView, 
+  StyleSheet, 
+  Text, 
+  TextInput, 
+  ScrollView, 
+  KeyboardAvoidingView, 
+  TouchableWithoutFeedback, 
+  Keyboard, 
+  Platform 
+} from 'react-native';
 import { Formik } from 'formik';
 
-export default function SignIn({ navigation }) {
+export default function SignIn({ navigation }: { navigation: any }) {
+
+  const initialValues = { 
+    username: '',
+    password: '',
+  }
+
+  const handleRegisterButton = () => {
+    navigation.push('Registration')
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <Formik
-        initialValues={
-        { 
-          username: '',
-          password: '',
-        }
-      }
-        onSubmit={values => console.log(values)}
+        initialValues={initialValues}
+        onSubmit={values => {}}
       >
       {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, dirty }) => (
           <KeyboardAvoidingView
@@ -40,12 +55,12 @@ export default function SignIn({ navigation }) {
               </ScrollView>
             </TouchableWithoutFeedback>
           <Button 
-            onPress={() => handleSubmit()} 
+            onPress={() => handleSubmit()}
             title="Sign In"
             disabled={!isValid || !dirty}
           />
           <Button 
-            onPress={() => navigation.push('Registration')} 
+            onPress={handleRegisterButton} 
             title="Register" 
           />
         </KeyboardAvoidingView>

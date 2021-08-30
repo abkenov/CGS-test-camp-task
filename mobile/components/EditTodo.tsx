@@ -3,36 +3,38 @@ import { Button, SafeAreaView, StyleSheet, Text, TextInput } from 'react-native'
 import { Formik } from 'formik';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import TodoService from '../services/todo.service';
-import * as yup from 'yup';
+import TodoFormValidation from '../validations/TodoFormValidation';
 
-const todo_service = new TodoService();
+const toDoService = new TodoService();
 
-export default function EditTodo({ navigation, route }) {
+export default function EditTodo({ navigation, route } : { navigation: any, route: any }) {
 
   const { id } = route.params
 
-  const validationSchema = yup.object().shape({
-    title: yup.string().typeError('string').required('Title can not be empty!'),
-    description: yup.string().typeError('string').required('Description can not be empty!'),
-  })
+  const initialValues = {
+    title: '',
+    description: '',
+    year: '',
+    isPublic: false,
+    isCompleted: false,
+  }
+
+  const toggleIsPublic = (values: any) => {
+    values.isPublic = !values.isPublic
+  }
+
+  const toggleIsCompleted = (values: any) => {
+    values.isCompleted = !values.isCompleted
+  }
 
   return (
     <Formik
-      initialValues={
-      { 
-        title: '',
-        description: '',
-        year: '',
-        isPublic: false,
-        isCompleted: false,
-      }
-    }
+      initialValues={initialValues}
       onSubmit={values => {
-        console.log(values)
-        todo_service.updateTodoById(values, id)
+        toDoService.updateTodoById(values, id)
         navigation.navigate('TodoContainer')
       }}
-      validationSchema={validationSchema}
+      validationSchema={TodoFormValidation()}
     >
       {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, dirty }) => (
         <SafeAreaView>
@@ -63,9 +65,9 @@ export default function EditTodo({ navigation, route }) {
           />
 
           <Text>isPublic</Text>
-            <BouncyCheckbox onPress={() => values.isPublic = !values.isPublic}></BouncyCheckbox>
+            <BouncyCheckbox onPress={() => toggleIsPublic(values)}></BouncyCheckbox>
           <Text>isComplete</Text>
-            <BouncyCheckbox onPress={() => values.isCompleted = !values.isCompleted}></BouncyCheckbox>
+            <BouncyCheckbox onPress={() => toggleIsCompleted(values)}></BouncyCheckbox>
 
           <Button 
             onPress={() => handleSubmit()} 

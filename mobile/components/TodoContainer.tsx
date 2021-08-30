@@ -2,32 +2,26 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, FlatList, Button } from 'react-native';
 import { useQuery } from 'react-query';
 import TodoService from '../services/todo.service';
+import TodoElement from './TodoElement'
 
 const todo_service = new TodoService();
 
-const TodoElement = ({title, description, id, date, isCompleted, isPublic, navigation}) => {
-  return(
-    <>
-      <Text>title: {title}</Text>
-      <Text>description: {description}</Text>
-      <Text>date: {date}</Text>
-      <Text>isCompleted: {`${isCompleted}`}</Text>
-      <Text>isPublic: {`${isPublic}`}</Text>
-      <Button title={'edit'} onPress={() => navigation.push('EditTodoScreen', {id: id})}></Button>
-      <Button title={'delete'} onPress={() => todo_service.deleteTodoById(id)}></Button>
-    </>
-  )
+const handleDeleteRequest = (id: String) => {
+  todo_service.deleteTodoById(id)
 }
 
-export default function TodoContainer({ navigation }) {
+const navigateToEditScreen = (navigation: any, id: String) => {
+  navigation.push('EditTodoScreen', {id: id})
+}
+
+export default function TodoContainer({ navigation }: { navigation: any }) {
 
   const { data, status } = useQuery('todos', async () => {
     const { data } = await todo_service.getTodos();
     return data;
   });
-  console.log(data) 
 
-  const renderItem = ( {item} : {item: any} ) => { 
+  const renderItem = ({ item }: { item: any }) => { 
     return (
       <TodoElement
         navigation={navigation}
@@ -37,6 +31,8 @@ export default function TodoContainer({ navigation }) {
         date={item.date}
         isCompleted={item.isCompleted}
         isPublic={item.isPublic}
+        handleDeleteRequest={handleDeleteRequest}
+        navigateToEditScreen={navigateToEditScreen}
       />
     )
   }
