@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, TextInput, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import { Formik } from 'formik';
 import RegistrationFormValidation from '../validations/RegistrationFormValidation';
+import UserService from '../services/user.service';
+
+const userService = new UserService()
 
 export default function Registration({ navigation }: { navigation: any }) {
-
-  const handleRegisterButton = (handleSubmit: Function) => {
-    handleSubmit()
-    navigation.goBack()
-  }
 
   const initialValues = { 
     username: '',
@@ -17,11 +15,22 @@ export default function Registration({ navigation }: { navigation: any }) {
     passwordVerification: '',
   }
 
+  const onFormSubmit = (values: any) => {
+    const user = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    }
+
+    navigation.goBack('SignIn')
+    userService.register(user)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Formik
         initialValues={initialValues}
-        onSubmit={values => {}}
+        onSubmit={values => onFormSubmit(values)}
         validationSchema={RegistrationFormValidation()}
       >
       {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, dirty }) => (
@@ -71,9 +80,9 @@ export default function Registration({ navigation }: { navigation: any }) {
               </ScrollView>
             </TouchableWithoutFeedback>
           <Button 
-            onPress={() => handleRegisterButton(handleSubmit)} 
+            onPress={handleSubmit} 
             title="Register"
-            disabled={!isValid || !dirty}
+            disabled={!isValid || !dirty} // 'dirty' is a defined prop from Formik API, it checks whether our form has been touched
           />
         </KeyboardAvoidingView>
       )}

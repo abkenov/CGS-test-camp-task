@@ -9,9 +9,12 @@ import {
   KeyboardAvoidingView, 
   TouchableWithoutFeedback, 
   Keyboard, 
-  Platform 
+  Platform,
 } from 'react-native';
 import { Formik } from 'formik';
+import UserService from '../services/user.service';
+
+const userService = new UserService()
 
 export default function SignIn({ navigation }: { navigation: any }) {
 
@@ -21,14 +24,32 @@ export default function SignIn({ navigation }: { navigation: any }) {
   }
 
   const handleRegisterButton = () => {
-    navigation.push('Registration')
+    navigation.navigate('Registration')
+  }
+
+  const onFormSubmit = (values: any) => {
+    const user = {
+      username: values.username,
+      password: values.password,
+    }
+    
+    userService.login(user)
+    checkIfLogged(values.username)
+  }
+
+  const checkIfLogged = async (username: String) => {
+    const response = await userService.isLogged(username)
+
+    if(response.data.isLoggedIn) {
+      navigation.replace('Tabs', { username: username })
+    }
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <Formik
         initialValues={initialValues}
-        onSubmit={values => {}}
+        onSubmit={values => onFormSubmit(values)}
       >
       {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, dirty }) => (
           <KeyboardAvoidingView
@@ -55,9 +76,9 @@ export default function SignIn({ navigation }: { navigation: any }) {
               </ScrollView>
             </TouchableWithoutFeedback>
           <Button 
-            onPress={() => handleSubmit()}
+            onPress={handleSubmit}
             title="Sign In"
-            disabled={!isValid || !dirty}
+            disabled={!isValid || !dirty} // 'dirty' is a defined prop from Formik API, it checks whether our form has been touched
           />
           <Button 
             onPress={handleRegisterButton} 

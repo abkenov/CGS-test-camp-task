@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { NavigationContainer } from '@react-navigation/native';
-import Tabs from './components/Tabs';
+import Authorization from './components/Authorization';
 
 const queryClient = new QueryClient();
 
 export default function App() {
+
   return (
     <NavigationContainer>
       <QueryClientProvider client={queryClient}>
         <SafeAreaView style={styles.container}>
           <StatusBar style="auto" />
-          <Tabs />
+            <Authorization />
         </SafeAreaView>
       </QueryClientProvider>
     </NavigationContainer>
