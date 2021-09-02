@@ -22,7 +22,6 @@ export default class UserService extends HttpService {
       url: 'login',
       data: user,
     })
-
     this.setTokenToStorage(response.data.token)
   }
 
