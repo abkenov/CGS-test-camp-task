@@ -8,7 +8,10 @@ export default class TodoService {
     async createTodo(todo: ITodo) {
         const newTodo = new Todo({
             title: todo.title,
-            content: todo.content,
+            description: todo.description,
+            date: todo.date,
+            isCompleted: todo.isCompleted,
+            isPublic: todo.isPublic,
         });
 
         return newTodo.save()
@@ -21,7 +24,10 @@ export default class TodoService {
     async updateTodoById(id: String, todo: ITodo) {
         const newTodo = new Todo({
             title: todo.title,
-            content: todo.content,
+            description: todo.description,
+            date: todo.date,
+            isCompleted: todo.isCompleted,
+            isPublic: todo.isPublic,
         });
 
         return Todo.findByIdAndUpdate(id, todo)
