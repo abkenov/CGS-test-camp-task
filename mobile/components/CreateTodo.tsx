@@ -25,13 +25,15 @@ export default function CreateTodo({ navigation } : { navigation: any }) {
     values.isCompleted = !values.isCompleted
   }
 
+  const onFormSubmit = (values: any) => {
+    toDoService.createNewTodo(values)
+    navigation.goBack()
+  }
+
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={values => {
-        toDoService.createNewTodo(values)
-        navigation.navigate('TodoContainer')
-      }}
+      onSubmit={onFormSubmit}
       validationSchema={TodoFormValidation()}
     >
       {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, dirty }) => (
@@ -64,18 +66,19 @@ export default function CreateTodo({ navigation } : { navigation: any }) {
 
           <Text>isPublic</Text>
             <BouncyCheckbox
-              onPress={() => toggleIsPublic(values)}>
+              onPress={toggleIsPublic(values)}>
             </BouncyCheckbox>
 
           <Text>isComplete</Text>
             <BouncyCheckbox 
-              onPress={() => toggleIsCompleted(values)}>
+              onPress={toggleIsCompleted(values)}>
             </BouncyCheckbox>
 
           <Button 
-            onPress={() => handleSubmit()} 
+            onPress={handleSubmit}
             title="Submit"
             disabled={!isValid || !dirty}
+            // 'dirty' is a defined prop from Formik API, it checks whether our form has been touched
           />
         </SafeAreaView>
       )}

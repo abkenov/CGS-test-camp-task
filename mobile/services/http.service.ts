@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class HttpSerivce {
   baseUrl: string | undefined;
@@ -15,21 +16,21 @@ export default class HttpSerivce {
     return `${this.baseUrl}/${this.apiVersion}/${url}`;
   }
 
-  private populateTokenToHeaderConfig() {
+  private async populateTokenToHeaderConfig() {
     return {
-      'Authorization': localStorage.getItem('token'),
+      'Authorization': await AsyncStorage.getItem('token'),
     }
   }
   
-  private extractUrlAndDataFromConfig({data, url, ...configWithoutDataAndUrl}) {
+  private extractUrlAndDataFromConfig({ data, url, ...configWithoutDataAndUrl }: { data: any, url: any}) {
     return configWithoutDataAndUrl;
   }
 
-  get(config: any, withAuth = true) {
+  async get(config: any, withAuth = true) {
     if (withAuth) {
       config.headers = {
         ...config.headers,
-        ...this.populateTokenToHeaderConfig(),
+        ...(await this.populateTokenToHeaderConfig()),
       }
     }
     return this.fetchingService.get(this.getFullApiUrl(config.url), this.extractUrlAndDataFromConfig(config));

@@ -1,25 +1,34 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, FlatList, Button } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, View, StyleSheet, Text, FlatList } from 'react-native';
 import { useQuery } from 'react-query';
 import TodoService from '../services/todo.service';
 import TodoElement from './TodoElement'
 
 const todo_service = new TodoService();
 
-const handleDeleteRequest = (id: String) => {
-  todo_service.deleteTodoById(id)
-}
-
-const navigateToEditScreen = (navigation: any, id: String) => {
-  navigation.push('EditTodoScreen', {id: id})
-}
-
 export default function TodoContainer({ navigation }: { navigation: any }) {
 
-  const { data, status } = useQuery('todos', async () => {
+  const [isFetching, setIsFetching] = useState(false)
+
+  const onRefresh = () => {
+    setIsFetching(true)
+    refetch()
+    setIsFetching(false)
+  }
+
+  const { data, refetch } = useQuery('todos', async () => {
     const { data } = await todo_service.getTodos();
     return data;
   });
+
+  const handleDeleteRequest = (id: String) => {
+    todo_service.deleteTodoById(id)
+    refetch()
+  }
+
+  const navigateToEditScreen = (navigation: any, id: String) => {
+    navigation.push('EditTodoScreen', { id: id })
+  }
 
   const renderItem = ({ item }: { item: any }) => { 
     return (
@@ -44,6 +53,8 @@ export default function TodoContainer({ navigation }: { navigation: any }) {
         data={data}
         renderItem={renderItem}
         keyExtractor={item => item._id}
+        refreshing={isFetching}
+        onRefresh={onRefresh}
       />
     </SafeAreaView>
   )

@@ -27,13 +27,15 @@ export default function EditTodo({ navigation, route } : { navigation: any, rout
     values.isCompleted = !values.isCompleted
   }
 
+  const onFormSubmit = (values: any) => {
+    toDoService.updateTodoById(values, id)
+    navigation.navigate('TodoContainer')
+  }
+
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={values => {
-        toDoService.updateTodoById(values, id)
-        navigation.navigate('TodoContainer')
-      }}
+      onSubmit={onFormSubmit}
       validationSchema={TodoFormValidation()}
     >
       {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, dirty }) => (
@@ -65,14 +67,15 @@ export default function EditTodo({ navigation, route } : { navigation: any, rout
           />
 
           <Text>isPublic</Text>
-            <BouncyCheckbox onPress={() => toggleIsPublic(values)}></BouncyCheckbox>
+            <BouncyCheckbox onPress={toggleIsPublic(values)}></BouncyCheckbox>
           <Text>isComplete</Text>
-            <BouncyCheckbox onPress={() => toggleIsCompleted(values)}></BouncyCheckbox>
+            <BouncyCheckbox onPress={toggleIsCompleted(values)}></BouncyCheckbox>
 
           <Button 
-            onPress={() => handleSubmit()} 
+            onPress={handleSubmit} 
             title="Submit"
             disabled={!isValid || !dirty}
+            // 'dirty' is a defined prop from Formik API, it checks whether our form has been touched
           />
         </SafeAreaView>
       )}
