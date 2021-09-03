@@ -22,7 +22,7 @@ const validation = () => {
   }
 }
 
-todosRouter.get("/", todoController.getAllTodo.bind(todoController));
+todosRouter.get("/:public/:completed", todoController.getAllTodo.bind(todoController));
 
 todosRouter.post(
   "/new-todo", 

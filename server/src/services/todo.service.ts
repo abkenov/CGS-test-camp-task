@@ -1,8 +1,11 @@
 import Todo, { ITodo } from '../models/Todo'
 
 export default class TodoService {
-    async findAllTodo() {
-        return Todo.find();
+    async findAllTodo(isPublic: any, isCompleted: any) {
+
+        const isFiltering = isPublic !== 'null' && isCompleted !== 'null'
+
+        return isFiltering ? Todo.find({ isPublic: isPublic, isCompleted: isCompleted }) : Todo.find();
     }
 
     async createTodo(todo: ITodo) {

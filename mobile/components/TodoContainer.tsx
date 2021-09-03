@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, StyleSheet, Text, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, View, StyleSheet, Text, FlatList, Button, Switch } from 'react-native';
 import { useQuery } from 'react-query';
 import TodoService from '../services/todo.service';
 import TodoElement from './TodoElement'
@@ -9,6 +9,35 @@ const todo_service = new TodoService();
 export default function TodoContainer({ navigation }: { navigation: any }) {
 
   const [isFetching, setIsFetching] = useState(false)
+  const [isPublic, setIsPublic] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false)
+  const [showFilter, setShowFilter] = useState(false)
+  const [isFiltering, setIsFiltering] = useState(false)
+
+  const handleFilter = () => {
+    setIsFiltering(true)
+    refetch()
+  }
+
+  const handleResetFilters = () => {
+    setIsPublic(false)
+    setIsCompleted(false)
+    setIsFiltering(false)
+    setShowFilter(false)
+    refetch()
+  }
+
+  const handleFilterPublic = () => {
+    setIsPublic(!isPublic)
+  }
+
+  const handleFilterCompleted = () => {
+    setIsCompleted(!isCompleted)
+  }
+
+  const toggleShowFilter = () => {
+    setShowFilter(!showFilter)
+  }
 
   const onRefresh = () => {
     setIsFetching(true)
@@ -17,7 +46,9 @@ export default function TodoContainer({ navigation }: { navigation: any }) {
   }
 
   const { data, refetch } = useQuery('todos', async () => {
-    const { data } = await todo_service.getTodos();
+    const { data } = isFiltering
+      ? await todo_service.getTodos(isPublic, isCompleted)
+      : await todo_service.getTodos(null, null)
     return data;
   });
 
@@ -48,6 +79,36 @@ export default function TodoContainer({ navigation }: { navigation: any }) {
   
   return(
     <SafeAreaView style={styles.container}>
+      <Button title={'show filter'} onPress={toggleShowFilter} />
+      {
+        showFilter
+        ?
+        <View>
+        <Text>Public</Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={isPublic ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={handleFilterPublic}
+          value={isPublic}
+        />
+
+        <Text>Completed</Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={isCompleted ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={handleFilterCompleted}
+          value={isCompleted}
+        />
+
+        <Button title={'Filter'} onPress={handleFilter} />
+        <Button title={'Reset Filters'} onPress={handleResetFilters} />
+      </View>
+      :  
+      null
+    }
+
       <FlatList
         scrollEnabled={true}
         data={data}

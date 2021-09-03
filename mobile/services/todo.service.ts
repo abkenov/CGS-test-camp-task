@@ -5,9 +5,9 @@ export default class TodoService extends HttpService {
     super();
   }
   
-  getTodos(withAuth = false) {
+  getTodos(isPublic: any, isCompleted: any, withAuth = false) {
     return this.get({
-      url: 'todos',
+      url: `todos/${''+isPublic}/${''+isCompleted}`,
     })
   }
 

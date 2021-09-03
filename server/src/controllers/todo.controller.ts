@@ -5,7 +5,10 @@ export class TodoController {
     constructor(private todoService: TodoService) {}
 
     async getAllTodo(req: Request, res: Response) {
-        const todos = await this.todoService.findAllTodo();
+        const isPublic = req.params['public']
+        const isCompleted = req.params['completed']
+
+        const todos = await this.todoService.findAllTodo(isPublic, isCompleted);
         res.json(todos);
     }
 
